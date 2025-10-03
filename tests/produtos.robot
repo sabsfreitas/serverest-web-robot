@@ -4,6 +4,7 @@ Library           RequestsLibrary
 Resource          ../resources/variables.resource
 Resource          ../resources/keywords/login.resource
 Resource          ../resources/keywords/produto.resource
+Resource          ../resources/keywords/carrinho.resource
 
 Suite Setup       Setup e Autenticar na Suite
 Suite Teardown    Delete All Sessions
@@ -36,3 +37,12 @@ Cenário 05: Listar Produtos
     [Documentation]    Testa a listagem de produtos
     [Tags]    positivo    produto    listagem
     Listar Produtos
+
+Cenário 06: Excluir Produto com Carrinho
+    [Documentation]    Testa que não é possível excluir um produto que está em um carrinho
+    [Tags]    negativo    produto    exclusão
+    ${response_produto}    ${nome_produto}=    Cadastrar Novo Produto    ${AUTH_TOKEN}
+    ${produto_id}=    Set Variable    ${response_produto.json()['_id']}
+    ${token_user}=    Gerar Token Usuário Comum
+    ${response_carrinho}=    Adicionar Produto Existente no Carrinho    ${token_user}    ${produto_id}
+    Excluir Produto com Carrinho    ${produto_id}    ${AUTH_TOKEN}

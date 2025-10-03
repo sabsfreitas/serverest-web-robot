@@ -29,6 +29,22 @@ Adicionar Produto no Carrinho
 
     RETURN    ${response}    ${produto_id}
 
+Adicionar Produto Existente no Carrinho
+    [Documentation]    Adiciona um produto existente ao carrinho de um usuário
+    [Arguments]    ${token}    ${produto_id}    ${quantidade}=1
+
+    ${produto_item}=    Create Dictionary    idProduto=${produto_id}    quantidade=${quantidade}
+    ${produtos_array}=    Create List    ${produto_item}
+    ${payload}=    Create Dictionary    produtos=${produtos_array}
+    ${headers}=    Create Dictionary    Authorization=${token}
+    ${response}=    POST On Session    serverest    /carrinhos    json=${payload}    headers=${headers}    expected_status=201
+
+    Should Be Equal As Strings    ${response.status_code}    201
+    Dictionary Should Contain Key    ${response.json()}    message
+    Should Match Regexp    ${response.json()['message']}    (?i)cadastro.*realizado.*sucesso
+
+    RETURN    ${response}
+
 Concluir Compra
     [Documentation]    Conclui a compra do carrinho de um usuário
     [Arguments]    ${token}

@@ -30,7 +30,7 @@ Cadastrar Novo Produto
     ...                descricao=${descricao}
     ...                quantidade=${quantidade}
     ${headers}=    Create Dictionary    Authorization=${token}
-    ${response}=    POST On Session    serverest    /produtos    json=${payload}    headers=${headers}    expected_status=201
+    ${response}=    POST On Session    serverest    /produtos    json=${payload}    headers=${headers}    expected_status=any
     
     Should Be Equal As Strings    ${response.status_code}    201
     Dictionary Should Contain Key    ${response.json()}    _id
@@ -102,5 +102,18 @@ Listar Produtos
     Should Be Equal As Strings    ${response.status_code}    200
     Dictionary Should Contain Key    ${response.json()}    produtos
     Should Not Be Empty    ${response.json()['produtos']}
-    
+
+    RETURN    ${response}
+
+Excluir Produto com Carrinho
+    [Documentation]    Exclui um produto que está em um carrinho.
+    ...                Requer o ID do produto e um token de autenticação.
+    [Arguments]    ${produto_id}    ${token}
+
+    ${headers}=    Create Dictionary    Authorization=${token}
+    ${response}=    DELETE On Session    serverest    /produtos/${produto_id}    headers=${headers}    expected_status=400
+
+    Should Be Equal As Strings    ${response.status_code}    400
+    Should Match Regexp    ${response.json()['message']}    (?i)não.*permitido.*excluir.*produto.*carrinho
+
     RETURN    ${response}

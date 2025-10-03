@@ -138,5 +138,34 @@ Buscar Usuário Inexistente
     Should Be Equal As Strings    ${response.status_code}    400
     Dictionary Should Contain Key    ${response.json()}    message
     Should Match Regexp    ${response.json()['message']}    (?i)usuário.*não.*encontrad
-    
+
+    RETURN    ${response}
+
+Deletar Usuário
+    [Documentation]    Deleta um usuário existente
+    [Arguments]    ${user_id} 
+
+    ${response}=    DELETE On Session    serverest    /usuarios/${user_id}   expected_status=200
+
+    Should Be Equal As Strings    ${response.status_code}    200
+    Dictionary Should Contain Key    ${response.json()}    message
+    Should Match Regexp    ${response.json()['message']}    (?i)registro.*excluído.*sucesso
+
+    RETURN    ${response}
+
+Atualizar Usuário com ID Inexistente
+    [Documentation]    Testa atualizar um usuário inexistente e cria novo usuário
+    [Arguments]    ${user_id_inexistente}    ${novo_nome}=Nome Atualizado
+
+    ${payload}=    Create Dictionary
+    ...    nome=${novo_nome}
+    ...    email=${VALID_EMAIL}
+    ...    password=${VALID_PASSWORD}
+    ...    administrador=false
+    ${response}=    PUT On Session    serverest    /usuarios/${user_id_inexistente}    json=${payload}    expected_status=201
+
+    Should Be Equal As Strings    ${response.status_code}    201
+    Dictionary Should Contain Key    ${response.json()}    message
+    Should Match Regexp    ${response.json()['message']}    (?i)cadastro.*sucesso
+
     RETURN    ${response}

@@ -44,8 +44,10 @@ Este projeto automatiza os testes da API ServeRest, uma API REST gratuita que si
 ### 📦 Produtos
 - ✅ Cadastro de produtos (apenas administradores)
 - ❌ Tentativa de cadastro por usuários comuns
+- ❌ Tentativa de cadastro com token inválido
 - ❌ Validação de nomes duplicados
 - 📋 Listagem de produtos
+- ❌ Exclusão de produto que está em carrinho
 
 ### 🛒 Carrinho
 - ✅ Adição de produtos ao carrinho
@@ -83,12 +85,14 @@ serverest-web-robot/
 │   └── 📄 output.xml                     # Saída em XML
 │
 └── 📁 docs/                              # Documentação QALity + Robot
-    ├── 📄 README_ESTRUTURA.md            # Documentação da estrutura
-    ├── 📊 Test_Execution_Report.xlsx     # Relatório de execução QALity
-    ├── 🖼️ test_execution_Log.png         # Log de execução Robot Framework
+    ├── 📊 Test_Execution_Report_02.10.2025.xlsx  # Relatório de execução QALity
+    ├── 📄 Planejamento de Testes – ServeRest-031025-050201.pdf  # Planejamento de testes
+    ├── 📄 Rastreabilidade de Issues e Melhorias _ Challenge 2-031025-050242.pdf  # Rastreabilidade
+    ├── 🖼️ test_execution_log.png         # Log de execução Robot Framework
     ├── 🖼️ testcycle.png                  # Print Test Cycle QALity
     ├── 📈 tests_chart.png                # Gráfico do Test Cycle QALity
-    └── 🖼️ overview_qality_testcycle.png  # Overview de execução QALity
+    ├── 🖼️ overview_qality_testcycle.png  # Overview de execução QALity
+    └── 🖼️ project_structure.png          # Estrutura do projeto
 
 ```
 
@@ -197,12 +201,12 @@ open results/report.html
 ## 📈 Métricas de Cobertura
 
 ### Cenários de Teste Implementados
-- **Usuários**: 11 cenários
+- **Usuários**: 13 cenários
 - **Login**: 3 cenários
-- **Produtos**: 5 cenários
+- **Produtos**: 6 cenários
 - **Carrinho**: 3 cenários
 
-**Total**: 22 cenários de teste
+**Total**: 25 cenários de teste
 
 
 ## 🛠️ Desenvolvimento
@@ -228,7 +232,7 @@ Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para ma
 ## 📞 Contato
 
 - **Projeto**: ServeRest Web Robot
-- **Documentação**: [README_ESTRUTURA.md](README_ESTRUTURA.md)
+- **Documentação**: Veja a pasta `docs/` para documentação adicional
 
 ---
 

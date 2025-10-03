@@ -64,3 +64,12 @@ Cenário 11: Buscar Usuário Inexistente
     [Tags]    negativo    medio
     [Documentation]    Testa que não é possível buscar um usuário inexistente (16 caracteres alfanuméricos)
     Buscar Usuário Inexistente    0000000000000000
+
+Cenário 12: Deletar Usuário
+    [Tags]    positivo    critico 
+    [Documentation]    Testa a deleção do usuário criado no primeiro cenário
+    Deletar Usuário    ${USER_ID}
+Cenário 13: Atualizar Usuário Inexistente
+    [Tags]    negativo    medio
+    [Documentation]    Testa que não é possível atualizar um usuário inexistente (16 caracteres alfanuméricos) e cria novo usuário
+    Atualizar Usuário com ID Inexistente    0000000000000000
