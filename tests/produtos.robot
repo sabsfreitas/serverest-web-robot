@@ -1,29 +1,38 @@
 *** Settings ***
-Documentation     Testes de Ações com Produtos - ServeRest API
+Documentation     Testes de ações com Produtos.
 Library           RequestsLibrary
 Resource          ../resources/variables.resource
+Resource          ../resources/keywords/login.resource
 Resource          ../resources/keywords/produto.resource
 
-Suite Setup       Setup Produtos Suite
+Suite Setup       Setup e Autenticar na Suite
 Suite Teardown    Delete All Sessions
-
+*** Variables ***
+${AUTH_TOKEN}     ${EMPTY}
 *** Test Cases ***
-
-Cadastrar Produto com Sucesso
+Cenário 01: Cadastrar Produto com Sucesso
     [Documentation]    Testa o cadastro de um produto com sucesso usando o token global
     [Tags]    positivo    produto    cadastro
-    ${response_produto}    ${nome_produto}=    Cadastrar Produto Valido
-    Log    Produto cadastrado com sucesso: ${nome_produto}
+    Cadastrar Novo Produto    ${AUTH_TOKEN}
 
-Cadastrar Produto com Nome Duplicado
+Cenário 02: Cadastrar Produto com Nome Duplicado
     [Documentation]    Testa que não é possível cadastrar dois produtos com o mesmo nome
     [Tags]    negativo    produto    duplicidade
-    ${response1}    ${nome_produto}=    Cadastrar Produto Valido
-    ${response2}=    Cadastrar Produto com Nome Duplicado    ${nome_produto}
+    ${response1}    ${nome_produto}=    Cadastrar Novo Produto    ${AUTH_TOKEN}
+    ${response2}=    Cadastrar Produto com Nome Duplicado    ${nome_produto}    ${AUTH_TOKEN}
 
-Listar Produtos
+Cenário 03: Cadastrar Produto Não Sendo Admin
+    [Documentation]    Testa que não é possível cadastrar um produto usando o token de um usuário não administrador
+    [Tags]    negativo    produto    permissão
+    ${token_user}=    Gerar Token Usuário Comum
+    Cadastrar Produto Não Sendo Admin    ${token_user}
+
+Cenário 04: Cadastrar Produto com Token Inválido
+    [Documentation]    Testa que não é possível cadastrar um produto usando um token inválido
+    [Tags]    negativo    produto    autenticação
+    Cadastrar Produto com Token Inválido    InvalidToken123
+
+Cenário 05: Listar Produtos
     [Documentation]    Testa a listagem de produtos
     [Tags]    positivo    produto    listagem
-    ${response}=    Listar Produtos
-    Should Be Equal As Strings    ${response.status_code}    200
-    Should Be Equal As Strings    ${response.status_code}    200
+    Listar Produtos
