@@ -82,7 +82,7 @@ serverest-web-robot/
 │   ├── 📄 report.html                    # Relatório de execução
 │   └── 📄 output.xml                     # Saída em XML
 │
-└── 📁 docs/                             # Documentação QALity + Robot
+└── 📁 docs/                              # Documentação QALity + Robot
     ├── 📄 README_ESTRUTURA.md            # Documentação da estrutura
     ├── 📊 Test_Execution_Report.xlsx     # Relatório de execução QALity
     ├── 🖼️ test_execution_Log.png         # Log de execução Robot Framework

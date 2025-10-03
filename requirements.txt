@@ -1,0 +1,5 @@
+# Robot Framework Core
+robotframework
+
+# API Testing Libraries
+robotframework-requests
