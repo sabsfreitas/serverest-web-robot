@@ -25,6 +25,7 @@ Este projeto automatiza os testes da API ServeRest, uma API REST gratuita que si
 ### 🌐 API Testada
 - **URL Base**: `http://13.218.59.237:3000`
 - **Documentação**: [ServeRest API](https://serverest.dev/)
+- Quadro Jira + QALity: [Quadro Jira + QALity – Challenge 02](https://sbnramos.atlassian.net/jira/software/projects/SBN/boards/38?atlOrigin=eyJpIjoiMTgwNWE5ODgxMWU0NDVlYThmNDM2M2ZhNzE3YjQ3MTEiLCJwIjoiaiJ9)
 
 ## ⚡ Funcionalidades Testadas
 
